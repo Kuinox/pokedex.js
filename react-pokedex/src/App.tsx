@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBarComponent from './components/TopBarComponent';
-import { PokemonStore } from "./backend/services/PokemonStore";
+import { PokemonStore } from "kuinox-pokedex-backend";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PokemonListDisplay from "./components/PokemonListDisplay";
 interface Props {

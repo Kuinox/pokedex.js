@@ -1,9 +1,8 @@
 import React from 'react';
-import { PokemonStore } from "../backend/services/PokemonStore";
+import { PokemonStore, PokemonName } from "kuinox-pokedex-backend";
 import SearchResultComponent from "./SearchResultComponent";
-import { createStyles, WithStyles, CircularProgress } from '@material-ui/core';
+import { createStyles, WithStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-import { PokemonName } from '../backend/services/PokeTypes';
 
 const styles = createStyles({
     buttonList: {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { CircularProgress, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { withStyles, createStyles, WithStyles } from '@material-ui/styles';
-import { PokemonStore } from '../backend/services/PokemonStore';
+import { PokemonStore } from 'kuinox-pokedex-backend';
 const styles = createStyles({
     li: {
         listStyleType: "none",
@@ -54,7 +54,6 @@ class SearchResultComponent extends React.Component<Props, State>{
     }
 
     pokeInfo() {
-        const { classes } = this.props;
         if (!this.state.open) {
             return;
         }
@@ -83,7 +82,7 @@ class SearchResultComponent extends React.Component<Props, State>{
             <li className={css}>
                 <Button className={classes.button} onClick={this.clicked} >
                     <div className={classes.buttonContent}>
-                        <img src={imgSrc} />
+                        <img src={imgSrc} alt={ "Sprite of the pokemon " + this.pokemonName + "."} />
                         {this.pokemonName}
                         {this.pokeInfo()}
                         <br />

@@ -1,0 +1,19 @@
+{
+  "name": "kuinox-pokedex-backend",
+  "version": "0.1.0",
+  "description": "In-Browser backend for my Pokedex project with various frameworks.",
+  "main": "dist/index.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "sql.js": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.3",
+    "@types/sql.js": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

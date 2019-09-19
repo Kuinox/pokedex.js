@@ -1,20 +1,32 @@
 import initSqlJs from 'sql.js';
 import axios from 'axios';
 import { SqlJs } from 'sql.js/module';
-import { PokemonName, PokemonStat } from './PokeTypes';
 
 let instance: PokemonStore;
-export async function initializePokemonStore(): Promise<PokemonStore> {
-    instance = await PokemonStore.loadStore();
+export async function initializePokemonStore(staticStorageUri: string): Promise<PokemonStore> {
+    instance = await PokemonStore.loadStore(staticStorageUri);
     return instance;
 }
+
 export const getPokemonStore: () => PokemonStore = () => instance;
 export class PokemonStore {
     private db: SqlJs.Database;
 
     private constructor(db: SqlJs.Database) {
         this.db = db;
-        console.log(this.db.exec("select id, identifier from pokemon")[0].values);
+    }
+
+    static async loadStore(staticStorageUri: string): Promise<PokemonStore> {
+        const config = {
+            locateFile: (filename: string) => staticStorageUri + "/" + filename
+        }
+        let results = await Promise.all([
+            axios.get<Uint8Array>(staticStorageUri + "/veekun-pokedex.sqlite",
+                {
+                    responseType: "arraybuffer"
+                }),
+            initSqlJs(config)]);
+        return new PokemonStore(new results[1].Database(new Uint8Array(results[0].data)));
     }
 
     getPokemonsWithId(): PokemonName[] {
@@ -55,17 +67,14 @@ export class PokemonStore {
                 }
             });
     }
+}
 
-    static async loadStore(): Promise<PokemonStore> {
-        const config = {
-            locateFile: (filename: string) => process.env.PUBLIC_URL + "/" + filename
-        }
-        let results = await Promise.all([
-            axios.get<Uint8Array>(process.env.PUBLIC_URL + "/data/veekun-pokedex.sqlite",
-                {
-                    responseType: "arraybuffer"
-                }),
-            initSqlJs(config)]);
-        return new PokemonStore(new results[1].Database(new Uint8Array(results[0].data)));
-    }
+export interface PokemonName {
+    id: number,
+    name : string
+}
+
+export interface PokemonStat {
+    statsName : string,
+    value : number
 }

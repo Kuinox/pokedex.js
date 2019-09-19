@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { initializePokemonStore } from "./backend/services/PokemonStore";
+import { initializePokemonStore } from "kuinox-pokedex-backend";
 
-initializePokemonStore().then((store) =>
+initializePokemonStore(process.env.PUBLIC_URL).then((store) =>
     ReactDOM.render(<App pokeStore={store} />, document.getElementById('root'))
 );
 
